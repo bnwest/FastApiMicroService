@@ -1,0 +1,3 @@
+FROM loadimpact/k6
+
+COPY tests/load/ /opt/load/

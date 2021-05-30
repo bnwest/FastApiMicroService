@@ -1,0 +1,44 @@
+version: '3'
+services:
+  fastapi-micro-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+      # docker build --target development --tag fastapi:dev .
+    image:
+      fastapi:dev
+    command:
+      - uvicorn
+      - --reload
+      - main:app
+      # - --host 127.0.0.1
+      # - --port 8000
+    ports:
+      - "127.0.0.1:8000:8000"
+
+  system-test:
+    depends_on:
+      - fastapi-micro-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: test
+    image:
+      fastapi-test:dev
+    environment:
+      FASTAPI_ROOT: "http://fastapi-micro-service:8000"
+    command: ["/bin/sleep", "86400"]
+    # [ "pytest", "-vv", "tests/system"]
+
+  load-test:
+    depends_on:
+      - fastapi-micro-service
+    build:
+      context: .
+      dockerfile: Dockerfile-k6
+    image:
+      fastapi-load:dev
+    # command:
+    #   # k6 is implicit and only its args need to be supplied.
+    entrypoint: ["/bin/sleep", "86400"]
