@@ -8,11 +8,12 @@ services:
       # docker build --target development --tag fastapi:dev .
     image:
       fastapi:dev
-    command:
-      - uvicorn
-      - --reload
-      - main:app
-      # - --host 127.0.0.1
+    command: ["uvicorn", "--host", "0.0.0.0", "--reload", "--log-level", "debug", "main:app"]
+      #- uvicorn
+      #- --host 0.0.0.0
+      #- --reload
+      #- --log-level debug
+      #- main:app
       # - --port 8000
     ports:
       - "127.0.0.1:8000:8000"
@@ -28,8 +29,8 @@ services:
       fastapi-test:dev
     environment:
       FASTAPI_ROOT: "http://fastapi-micro-service:8000"
-    command: ["/bin/sleep", "86400"]
-    # [ "pytest", "-vv", "tests/system"]
+    # command: ["/bin/sleep", "86400"]
+    command: [ "pytest", "-vv", "tests/system"]
 
   load-test:
     depends_on:
