@@ -65,7 +65,7 @@ INFO:     Started server process [15]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
-For the reason that I used `0.0.0.0` as the host IP, see (Connection refused? Docker networking and how it impacts your image)[https://pythonspeed.com/articles/docker-connection-refused/].
+For the reason that I used `0.0.0.0` as the host IP, see [Connection refused Docker networking and how it impacts your image](https://pythonspeed.com/articles/docker-connection-refused/).
 The takeaways from that article are:
 1. By default, containers run in their own network namespaces, with their own IP addresses.
 2. docker run -p 5000:5000 will forward from all interfaces in the main network namespace 
@@ -85,7 +85,7 @@ CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS    
 # use the NAME of the running image
 $ docker exec -it intelligent_almeida bash
 ```
-Once with the running Docker image, run the following commands:
+Once within the running Docker image, run the following commands:
 ```bash
 root@92012bb99cc4:/opt/src# ping 127.0.0.1
 PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
@@ -108,7 +108,7 @@ root@4b626d048f95:/opt/src# nc -vz 0.0.0.0 8000
 0.0.0.0: inverse host lookup failed: Unknown host
 (UNKNOWN) [0.0.0.0] 8000 (?) open
 ```
-The `open` status implies that someone (i.e. uvicorn) is listening to the 8000 port, a very good and necessary thing.
+The netcat `open` status implies that someone (i.e. uvicorn) is listening to the 8000 port, a very good and necessary thing.
 
 ### Testing a FastAPI endpoint
 After the netwrok santity check and sill at the bash prompt within the running Docker image, run a set of python statements within `ipython` to programmatically tests an endpoint:
@@ -129,11 +129,11 @@ Out[1]: {'Hello': 'World'}
 
 ### Testing a FastAPI Endpoint in the Host's Browser
 
-If needed, exiting out of any running Dcoker images.
+If needed, exit out of any running Dcoker images.
 
 Start the Docker image with a port forwarded via
 ```bash
-# Map the internal port tot he external port via convention <host port>:<docker image port>
+# Map the internal port to the external port via convention <host port>:<docker image port>
 $ docker run -it  --publish 8000:8000 fastapi:dev
 ```
 
@@ -146,7 +146,7 @@ http://127.0.0.1:8000/items/42
 http://127.0.0.1:8000/items/42?q=5a920c4c-03d2-422e-b863-ce8126d35ff2
 ```
 The `/docs` endpoint displays the OpenAPI documentation.
-Each endpoint, once selected, can be tested by clicking the "Try it out" button.
+Each endpoint therein, once selected, can be tested by clicking the "Try it out" button.
 
 ### Manually run the System Tests
 
@@ -158,7 +158,7 @@ CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS    
 
 $ docker exec -it pensive_swanson bash
 ```
-Run `pytest from the command line:
+Run `pytest` from the command line:
 ```bash
 $ export FASTAPI_ROOT="http://127.0.0.1:8000"
 
@@ -179,9 +179,9 @@ tests/system/test_hello.py::test_hello_world PASSED                             
 
 After doing the above work, the Docker build and image should be in good shape.
 
-Docker compose simplifies running and testing, since the `docker-compose` file takes care of port mapping, setting up enviroment variable and running multiple images at once.
+Docker compose simplifies running and testing, since the `docker-compose.yaml` file takes care of port mapping, setting up enviroment variable and running multiple images at once.
 
-To build the necessary Docker images, run the following commands which the service image and the system test image:
+To build the necessary Docker images, run the following commands which builds the service image and the system test image:
 ```bash
 $ docker-compose build fastapi-micro-service
 $ docker-compose build system-test

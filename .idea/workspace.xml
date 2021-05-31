@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="335433f6-9a7e-44d0-a101-9be5c43cff1a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,8 +43,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="1611">
-                <caret line="244" selection-start-line="244" selection-end-line="244" />
+              <first_editor relative-caret-position="1335">
+                <caret line="185" selection-start-line="185" selection-end-line="185" />
               </first_editor>
               <second_editor />
             </state>
@@ -273,8 +272,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1611">
-            <caret line="244" selection-start-line="244" selection-end-line="244" />
+          <first_editor relative-caret-position="1335">
+            <caret line="185" selection-start-line="185" selection-end-line="185" />
           </first_editor>
           <second_editor />
         </state>
