@@ -149,6 +149,3 @@ RUN echo 'alias ls="ls -aFC --color"' >> ~/.bashrc
 EXPOSE 8000
 # CMD sleep 86400
 CMD uvicorn --host 0.0.0.0 --reload --log-level debug main:app
-
-# CMD uvicorn --host 0.0.0.0 file:app
-# --log-config web/$WEB_DIR/app/logging.cfg --reload web.$WEB_DIR.app.main:app
