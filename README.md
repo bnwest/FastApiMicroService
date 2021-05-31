@@ -250,3 +250,149 @@ $ docker-compose down
 
 ## Kubernetes + Helm
 
+This was my initial attempt to get this FastAPI service running in Kubernetes via helm.
+
+I used the Kubernetes packaged with [Docker Desktop for Mac
+](https://hub.docker.com/editions/community/docker-ce-desktop-mac).
+Kubernetes will need to enable in the Settings.
+If you Kubernetes is configured elsewhere on the host, you will need select `docker-desktop` from the Kubernetes menu.
+The following commands will verify that you have the right Kubernetes node:
+```bash
+$ kubectl config get-contexts
+
+$ kubectl config current-context
+docker-desktop
+
+$ kubectl get nodes
+NAME             STATUS   ROLES    AGE     VERSION
+docker-desktop   Ready    master   7m50s   v1.19.7
+```
+The following link may assist in getting Kubernetes to work on the Mac: [Using Kubernetes with Docker for Mac](https://logz.io/blog/kubernetes-docker-mac/). 
+
+The following link may assist in getting Kubernetes and helm working with a FastAPI service: [Simple chart with helm](https://bartek-blog.github.io/kubernetes/helm/python/fastapi/2020/12/13/helm.html).
+
+The work below may also work with the host's [minikube](https://minikube.sigs.k8s.io/docs/) Kubernetes.  I did not try it.
+
+To setup the initial helm charts, I did the following commands from the repo root:
+```bash
+$ mkdir charts
+
+$ cd charts
+
+$ helm create fastapi-service
+
+$ tree
+.
+└── fastapi-service
+    ├── Chart.yaml
+    ├── charts
+    ├── templates
+    │   ├── NOTES.txt
+    │   ├── _helpers.tpl
+    │   ├── deployment.yaml
+    │   ├── hpa.yaml
+    │   ├── ingress.yaml
+    │   ├── service.yaml
+    │   ├── serviceaccount.yaml
+    │   └── tests
+    │       └── test-connection.yaml
+    └── values.yaml
+
+$ helm lint
+==> Linting .
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+```
+The above yaml files are parameterized manifest files which when filled in are used as the input that Kubernetes (via `kubectl`) requires.
+
+The above helm chart files need to be modified. 
+In particular, I needed to switch the executable Docker image to the one we built with Docker.
+The pull policy also needed to be changed.
+Helm/Kubernetes by default wants to find/pull its images non-locally in the docker register.
+To force Helm/Kubernetes to find the image locally, the `pullPolicy` needs to be set to `Never`.  See [Kubernetes Documentation: Configuration Best Practices](https://kubernetes.io/docs/concepts/configuration/overview/):
+```bash
+imagePullPolicy: Never: the image is assumed to exist locally. No attempt is made to pull the image.
+```
+
+To see how the helm paramaterized yaml files will expanded. do the following:
+```bash
+$ cd charts  # if needed
+$ helm install --debug --dry-run my-release fastapi-service
+```
+The image and pull policy can then be manually verified, if you like.
+
+To start the FastAPI service in Kubernetes, do the following:
+```bash
+$ cd charts  # if needed
+
+$ helm install my-release fastapi-service
+NAME: my-release
+LAST DEPLOYED: Mon May 31 15:13:54 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=fastapi-service,app.kubernetes.io/instance=my-release" -o jsonpath="{.items[0].metadata.name}")
+  echo "Visit http://127.0.0.1:8080 to use your application"
+  kubectl --namespace default port-forward $POD_NAME 8080:80
+
+$ helm list
+NAME      	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART                	APP VERSION
+my-release	default  	1       	2021-05-31 15:13:54.677062 -0400 EDT	deployed	fastapi-service-0.1.0	1.16.0     
+
+# to see what Kubernetes has got going:
+$ kubectl get all
+NAME                                              READY   STATUS    RESTARTS   AGE
+pod/my-release-fastapi-service-7f778f65f4-jhb27   1/1     Running   0          2m6s
+
+NAME                                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes                   ClusterIP   10.96.0.1        <none>        443/TCP    24h
+service/my-release-fastapi-service   ClusterIP   10.102.117.206   <none>        8000/TCP   2m6s
+
+NAME                                         READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/my-release-fastapi-service   1/1     1            1           2m6s
+
+NAME                                                    DESIRED   CURRENT   READY   AGE
+replicaset.apps/my-release-fastapi-service-7f778f65f4   1         1         1       2m6s
+
+# to see the uvigorn logs (the GETs you see in the logs is a health check that Kubernetes is periodically calling):
+$ kubectl logs pod/my-release-fastapi-service-7f778f65f4-jhb27
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [7] using statreload
+INFO:     Started server process [9]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     10.1.0.1:60850 - "GET / HTTP/1.1" 200 OK
+INFO:     10.1.0.1:60858 - "GET / HTTP/1.1" 200 OK
+...
+
+# to port forward so that the host browser can hit the FastAPI endpoints:
+$ kubectl port-forward service/my-release-fastapi-service 8000:8000
+Forwarding from 127.0.0.1:8000 -> 8000
+Forwarding from [::1]:8000 -> 8000
+Handling connection for 8000
+...
+```
+
+To exercise the FastAPI service endpoint go to the host browser and enter the following URLs:
+```bash
+http://127.0.0.1:8000
+http://127.0.0.1:8000/docs
+http://127.0.0.1:8000/redoc
+http://127.0.0.1:8000/items/42
+http://127.0.0.1:8000/items/42?q=5a920c4c-03d2-422e-b863-ce8126d35ff2
+```
+
+To tear it all down:
+```bash
+$ helm list
+NAME      	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART                	APP VERSION
+my-release	default  	1       	2021-05-31 15:13:54.677062 -0400 EDT	deployed	fastapi-service-0.1.0	1.16.0     
+
+$ helm delete my-release
+release "my-release" uninstalled
+```
+
+## Load Test
