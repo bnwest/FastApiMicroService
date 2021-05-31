@@ -46,7 +46,6 @@ class VersionsResult(pydantic.BaseModel):
     uvicorn: str
 
 
-@app.get("/versions", response_model=VersionsResult)
 async def versions() -> VersionsResult:
     result = VersionsResult(
         python=platform.python_version(),
@@ -55,3 +54,10 @@ async def versions() -> VersionsResult:
         uvicorn=uvicorn.__version__,
     )
     return result
+
+
+def mount(app: fastapi.FastAPI) -> None:
+    app.get("/versions", response_model=VersionsResult)(versions)
+
+
+mount(app)
