@@ -40,6 +40,14 @@ services:
       dockerfile: Dockerfile-k6
     image:
       fastapi-load:dev
-    # command:
-    #   # k6 is implicit and only its args need to be supplied.
-    entrypoint: ["/bin/sleep", "86400"]
+    environment:
+      FASTAPI_ROOT: "http://fastapi-micro-service:8000"
+    # k6 is implicit and only its args need to be supplied.
+    command: --verbose run /opt/load/load.js --vus 4 --iterations 1000
+    # command: --verbose run /opt/load/load.js --vus 4 --duration 1m
+    # command can be overridden:
+    #   docker-compose run load-test --verbose run /opt/load/load.js --vus 4 --duration 1m
+    # entrypoint: ["/bin/sleep", "86400"]
+    # entrypoint can be overridden:
+    #   docker-compose run --entrypoint sh load-test
+    #   docker-compose run --entrypoint "sleep 86400" load-test

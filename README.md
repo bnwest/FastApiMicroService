@@ -396,3 +396,105 @@ release "my-release" uninstalled
 ```
 
 ## Load Test
+
+I implemented a small load test via [k6](https://k6.io/).
+None of the endpoints actually have much of a load, so this is just an example of how to write a simple load test with [k6](https://k6.io/).
+
+To build the load test docker image:
+```bash
+docker-compose build load-test
+```
+
+To run the load test:
+```bash
+$ docker-compose up load-test
+```
+which is equivalent to running:
+```bash
+$ docker-compose run load-test --verbose run /opt/load/load.js --vus 4 --iterations 1000
+```
+The load test will manage four processes (`--vus 4`) and will hit the root endpoint 1000 times (`--iterations 20`), giving each process 250 endpoint accesses.
+
+[k6](https://k6.io/) will produce the following output:
+```bash
+DEBU[0000] Logger format: TEXT                          
+DEBU[0000] k6 version: v0.30.0 (2021-01-20T13:14:28+0000/2193de0, go1.15.7, linux/amd64) 
+
+          /\      |‾‾| /‾‾/   /‾‾/   
+     /\  /  \     |  |/  /   /  /    
+    /  \/    \    |     (   /   ‾‾\  
+   /          \   |  |\  \ |  (‾)  | 
+  / __________ \  |__| \__\ \_____/ .io
+
+DEBU[0000] Initializing the runner...                   
+DEBU[0000] Loading...                                    moduleSpecifier="file:///opt/load/load.js" originalModuleSpecifier=/opt/load/load.js
+DEBU[0000] Babel: Transformed                            t=144.778313ms
+DEBU[0000] Loading...                                    moduleSpecifier="https://jslib.k6.io/k6-utils/1.0.0/index.js" originalModuleSpecifier="https://jslib.k6.io/k6-utils/1.0.0/index.js"
+DEBU[0000] Fetching source...                            url="https://jslib.k6.io/k6-utils/1.0.0/index.js?_k6=1"
+DEBU[0001] Fetched!                                      len=653 t=411.225578ms url="https://jslib.k6.io/k6-utils/1.0.0/index.js?_k6=1"
+DEBU[0001] Babel: Transformed                            t=143.174648ms
+DEBU[0001] Getting the script options...                
+DEBU[0001] Initializing the execution scheduler...      
+  execution: local
+     script: /opt/load/load.js
+     output: -
+
+  scenarios: (100.00%) 1 scenario, 4 max VUs, 10m30s max duration (incl. graceful stop):
+           * default: 1000 iterations shared among 4 VUs (maxDuration: 10m0s, gracefulStop: 30s)
+
+DEBU[0001] Starting the REST API server on localhost:6565 
+DEBU[0001] Initialization starting...                    component=engine
+DEBU[0001] Start of initialization                       executorsCount=1 neededVUs=4 phase=local-execution-scheduler-init
+DEBU[0001] Initialized VU #2                             phase=local-execution-scheduler-init
+DEBU[0001] Initialized VU #1                             phase=local-execution-scheduler-init
+DEBU[0001] Initialized VU #4                             phase=local-execution-scheduler-init
+DEBU[0001] Initialized VU #3                             phase=local-execution-scheduler-init
+DEBU[0001] Finished initializing needed VUs, start initializing executors...  phase=local-execution-scheduler-init
+DEBU[0001] Initialized executor default                  phase=local-execution-scheduler-init
+DEBU[0001] Initialization completed                      phase=local-execution-scheduler-init
+DEBU[0001] Execution scheduler starting...               component=engine
+DEBU[0001] Start of test run                             executorsCount=1 phase=local-execution-scheduler-run
+DEBU[0001] Running setup()                               phase=local-execution-scheduler-run
+DEBU[0001] Starting emission of VU metrics...            component=engine
+DEBU[0001] Metrics processing started...                 component=engine
+DEBU[0001] Start all executors...                        phase=local-execution-scheduler-run
+DEBU[0001] Starting executor                             executor=default startTime=0s type=shared-iterations
+DEBU[0001] Starting executor run...                      executor=shared-iterations iterations=1000 maxDuration=10m0s scenario=default type=shared-iterations vus=4
+DEBU[0005] Executor finished successfully                executor=default startTime=0s type=shared-iterations
+DEBU[0005] Running teardown()                            phase=local-execution-scheduler-run
+DEBU[0005] Regular duration is done, waiting for iterations to gracefully finish  executor=shared-iterations gracefulStop=30s scenario=default
+DEBU[0005] Execution scheduler terminated                component=engine error="<nil>"
+DEBU[0005] Processing metrics and thresholds after the test run has ended...  component=engine
+DEBU[0005] Engine run terminated cleanly                
+
+running (00m03.9s), 0/4 VUs, 1000 complete and 0 interrupted iterations
+default ✓ [======================================] 4 VUs  00m03.8s/10m0s  1000/1000 shared iters
+DEBU[0005] Engine: Thresholds terminated                 component=engine
+DEBU[0005] run: execution scheduler terminated           component=engine
+DEBU[0005] Metrics emission terminated                   component=engine
+
+     █ GET
+
+       ✓ status is 200
+
+     checks.....................: 100.00% ✓ 1000 ✗ 0  
+     data_received..............: 200 kB  52 kB/s
+     data_sent..................: 100 kB  26 kB/s
+     group_duration.............: avg=15.23ms min=985.43µs med=1.91ms   max=47.97ms  p(90)=42.81ms p(95)=43.3ms 
+     http_req_blocked...........: avg=18.35µs min=1.46µs   med=2.75µs   max=3.92ms   p(90)=4.29µs  p(95)=5.45µs 
+     http_req_connecting........: avg=681ns   min=0s       med=0s       max=229.23µs p(90)=0s      p(95)=0s     
+     http_req_duration..........: avg=15.04ms min=885.25µs med=1.73ms   max=47.83ms  p(90)=42.64ms p(95)=43.13ms
+     http_req_receiving.........: avg=13.56ms min=25.55µs  med=182.81µs max=45.3ms   p(90)=41.06ms p(95)=41.37ms
+     http_req_sending...........: avg=22.36µs min=7.31µs   med=13.94µs  max=1.65ms   p(90)=41.44µs p(95)=54.27µs
+     http_req_tls_handshaking...: avg=0s      min=0s       med=0s       max=0s       p(90)=0s      p(95)=0s     
+     http_req_waiting...........: avg=1.45ms  min=712.88µs med=1.17ms   max=7.26ms   p(90)=2.48ms  p(95)=3.06ms 
+     http_reqs..................: 1000    259.182468/s
+     iteration_duration.........: avg=15.25ms min=995.85µs med=1.94ms   max=48.05ms  p(90)=42.83ms p(95)=43.32ms
+     iterations.................: 1000    259.182468/s
+     vus........................: 4       min=4  max=4
+     vus_max....................: 4       min=4  max=4
+
+DEBU[0005] Waiting for engine processes to finish...    
+DEBU[0005] Metrics processing winding down...            component=engine
+DEBU[0005] Everything has finished, exiting k6!         
+```
