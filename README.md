@@ -40,6 +40,8 @@ I find it easier to work within the running Docker image, since in the end poetr
 % mkdir $PYSETUP_PATH
 % cd $PYSETUP_PATH
 % $POETRY_HOME/bin/poetry init
+# will be given a chance to add python packages, one at a time.
+# packages can later be add via "poetry add <package>".
 % cat pyproject.toml 
 % $POETRY_HOME/bin/poetry install
 % cat poetry.lock 
@@ -111,7 +113,7 @@ root@4b626d048f95:/opt/src# nc -vz 0.0.0.0 8000
 The netcat `open` status implies that someone (i.e. uvicorn) is listening to the 8000 port, a very good and necessary thing.
 
 ### Testing a FastAPI endpoint
-After the netwrok santity check and sill at the bash prompt within the running Docker image, run a set of python statements within `ipython` to programmatically tests an endpoint:
+After the network santity check and sill at the bash prompt within the running Docker image, run a set of python statements within `ipython` to programmatically tests an endpoint:
 ```bash
 root@4b626d048f95:/opt/src# ipython
 Python 3.9.2 (default, Mar 12 2021, 19:04:51) 
@@ -160,9 +162,9 @@ $ docker exec -it pensive_swanson bash
 ```
 Run `pytest` from the command line:
 ```bash
-$ export FASTAPI_ROOT="http://127.0.0.1:8000"
+root@9acfbfcaf811:/opt/src# export FASTAPI_ROOT="http://127.0.0.1:8000"
 
-$ pytest -vv tests/system/test_hello.py
+root@9acfbfcaf811:/opt/src# pytest -vv tests/system/test_hello.py
 ================================================== test session starts ==================================================
 platform linux -- Python 3.9.2, pytest-6.2.2, py-1.10.0, pluggy-0.13.1 -- /opt/pysetup/.venv/bin/python
 cachedir: .pytest_cache
@@ -184,6 +186,7 @@ Docker compose simplifies running and testing, since the `docker-compose.yaml` f
 To build the necessary Docker images, run the following commands which builds the service image and the system test image:
 ```bash
 $ docker-compose build fastapi-micro-service
+
 $ docker-compose build system-test
 ```
 To start the FastAPI service run:
@@ -318,6 +321,7 @@ imagePullPolicy: Never: the image is assumed to exist locally. No attempt is mad
 To see how the helm paramaterized yaml files will expanded. do the following:
 ```bash
 $ cd charts  # if needed
+
 $ helm install --debug --dry-run my-release fastapi-service
 ```
 The image and pull policy can then be manually verified, if you like.

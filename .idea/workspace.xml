@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="335433f6-9a7e-44d0-a101-9be5c43cff1a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +15,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1594">
+            <state relative-caret-position="2194">
               <caret line="151" selection-start-line="151" selection-end-line="151" />
             </state>
           </provider>
@@ -44,8 +43,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="1656">
-                <caret line="500" selection-start-line="500" selection-end-line="500" />
+              <first_editor relative-caret-position="657">
+                <caret line="44" selection-start-line="44" selection-end-line="44" />
               </first_editor>
               <second_editor />
             </state>
@@ -109,6 +108,8 @@
     <findStrings>
       <find>fastapi:dev</find>
       <find>VENV_PATH</find>
+      <find>$</find>
+      <find>netwrok</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -240,13 +241,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1594">
-          <caret line="151" selection-start-line="151" selection-end-line="151" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="945">
@@ -295,11 +289,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2194">
+          <caret line="151" selection-start-line="151" selection-end-line="151" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1656">
-            <caret line="500" selection-start-line="500" selection-end-line="500" />
+          <first_editor relative-caret-position="657">
+            <caret line="44" selection-start-line="44" selection-end-line="44" />
           </first_editor>
           <second_editor />
         </state>
