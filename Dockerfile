@@ -40,7 +40,7 @@ ENV POETRY_VERSION=1.1.4
 
 ENV POETRY_HOME="/opt/poetry"
 
-# the virtualenv wil be created and expected in a folder named .venv
+# the virtualenv will be created and expected in a folder named .venv
 # within the root directory of the project.
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
