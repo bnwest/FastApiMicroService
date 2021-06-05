@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "fastapi-service.fullname" . }}-test-system"
+  labels:
+    {{- include "fastapi-service.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: systems-test
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      imagePullPolicy: {{ .Values.image.pullPolicy }}
+      env:
+        - name: FASTAPI_ROOT
+          value: 'http://{{ include "fastapi-service.fullname" . }}:{{ .Values.service.port }}'
+      command: ['pytest']
+      args: ['-vv', 'tests/system']
+  restartPolicy: Never

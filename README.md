@@ -258,7 +258,7 @@ This was my initial attempt to get this FastAPI service running in Kubernetes vi
 I used the Kubernetes packaged with [Docker Desktop for Mac
 ](https://hub.docker.com/editions/community/docker-ce-desktop-mac).
 Kubernetes will need to enable in the Settings.
-If you Kubernetes is configured elsewhere on the host, you will need select `docker-desktop` from the Kubernetes menu.
+If your Kubernetes is configured elsewhere on the host, you will need to select `docker-desktop` from the Kubernetes menu.
 The following commands will verify that you have the right Kubernetes node:
 ```bash
 $ kubectl config get-contexts
