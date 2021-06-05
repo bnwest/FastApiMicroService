@@ -226,7 +226,7 @@ system-test_1            | ============================== 1 passed in 0.25s ====
 fastapimicroservice_system-test_1 exited with code 0
 ```
 
-In a second xterm, you can manually run the systems test(s) via:
+In a second xterm, you can bash into the running image and manually run the systems test(s) via:
 
 ```bash
 $ docker-compose exec system-test bash
