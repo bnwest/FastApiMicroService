@@ -399,6 +399,47 @@ $ helm delete my-release
 release "my-release" uninstalled
 ```
 
+### Running Helm Tests
+
+`helm create` creates one test, test-connection, found here:
+```bash
+charts/fastapi-service/templates/tests/test-connection.yaml
+```
+This test can be run via
+```bash
+$ helm install my-release fastapi-service
+
+$ helm test my-release
+```
+Additional tests can be added to the same directory.
+I added a test, `test-system.yaml`, that ran the pytest system tests I created:
+```bash
+$ elm test my-release
+Pod my-release-fastapi-service-test-connection pending
+Pod my-release-fastapi-service-test-connection pending
+Pod my-release-fastapi-service-test-connection pending
+Pod my-release-fastapi-service-test-connection succeeded
+Pod my-release-fastapi-service-test-system pending
+Pod my-release-fastapi-service-test-system pending
+Pod my-release-fastapi-service-test-system pending
+Pod my-release-fastapi-service-test-system running
+Pod my-release-fastapi-service-test-system succeeded
+NAME: my-release
+LAST DEPLOYED: Sat Jun  5 12:07:32 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE:     my-release-fastapi-service-test-connection
+Last Started:   Sat Jun  5 12:08:32 2021
+Last Completed: Sat Jun  5 12:08:36 2021
+Phase:          Succeeded
+TEST SUITE:     my-release-fastapi-service-test-system
+Last Started:   Sat Jun  5 12:08:36 2021
+Last Completed: Sat Jun  5 12:08:41 2021
+Phase:          Succeeded
+```
+The test output can be manually be checked via `kubectl logs <test pod>`.
+
 ## Load Test
 
 I implemented a small load test via [k6](https://k6.io/).

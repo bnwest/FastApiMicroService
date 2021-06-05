@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="335433f6-9a7e-44d0-a101-9be5c43cff1a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,12 +30,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="552">
-                <caret line="260" column="73" selection-start-line="260" selection-start-column="73" selection-end-line="260" selection-end-column="73" />
+              <first_editor relative-caret-position="1568">
+                <caret line="545" selection-start-line="545" selection-end-line="545" />
               </first_editor>
               <second_editor />
             </state>
@@ -73,7 +72,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/charts/fastapi-service/templates/tests/test-system.yaml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
@@ -127,10 +126,10 @@
         <option value="$PROJECT_DIR$/tests/load/loads.js" />
         <option value="$PROJECT_DIR$/tests/load/load.js" />
         <option value="$PROJECT_DIR$/docker-compose.yaml" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/charts/fastapi-service/templates/tests/test-connection.yaml" />
         <option value="$PROJECT_DIR$/charts/fastapi-service/templates/tests/test_system.yaml" />
         <option value="$PROJECT_DIR$/charts/fastapi-service/templates/tests/test-system.yaml" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -296,16 +295,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="552">
-            <caret line="260" column="73" selection-start-line="260" selection-start-column="73" selection-end-line="260" selection-end-column="73" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/system/test_hello.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -365,6 +354,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="1568">
+            <caret line="545" selection-start-line="545" selection-end-line="545" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
