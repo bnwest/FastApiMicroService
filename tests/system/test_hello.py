@@ -2,7 +2,6 @@ import os
 import requests
 
 # export FASTAPI_ROOT="http://fastapi-micro-service:8000"
-# export FASTAPI_ROOT="http://127.0.0.1:8000"
 FASTAPI_ROOT = os.environ.get("FASTAPI_ROOT")
 
 

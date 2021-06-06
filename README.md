@@ -411,10 +411,17 @@ $ helm install my-release fastapi-service
 
 $ helm test my-release
 ```
-Additional tests can be added to the same directory.
-I added a test, `test-system.yaml`, that ran the pytest system tests I created:
+I added an additional tests to the same directory, `test-system.yaml`, which ran the pytest system tests that I created.
+Internally, the job defnition for the test needs to contain one of the helm test hook annotations, like 
 ```bash
-$ elm test my-release
+  annotations:
+    "helm.sh/hook": test-success
+```
+For more on running test within helm, see [Chart Tests](https://helm.sh/docs/topics/chart_tests/).
+
+Running all of tests:
+```bash
+$ helm test my-release
 Pod my-release-fastapi-service-test-connection pending
 Pod my-release-fastapi-service-test-connection pending
 Pod my-release-fastapi-service-test-connection pending
