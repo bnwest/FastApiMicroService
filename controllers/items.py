@@ -21,5 +21,3 @@ async def update_item(item_id: int, item: Item) -> Dict:
 def mount(app: FastAPI) -> None:
     app.get("/items/{item_id}")(read_item)
     app.put("/items/{item_id}")(update_item)
-
-

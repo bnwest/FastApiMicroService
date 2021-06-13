@@ -2,11 +2,36 @@
 
 # See: https://fastapi.tiangolo.com
 
+import logging
+import logging_tree
+
 from fastapi import FastAPI
 
-from controllers import mount_controllers
+import middleware
+import controllers
 
+DEFAULT_LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "stream": "ext://sys.stdout",
+        },
+    },
+    "loggers": {
+        "": {"level": "INFO", "handlers": ["console"]},
+    },
+}
+
+logging.config.dictConfig(DEFAULT_LOGGING)
+
+# to see the current log config:
+logging_tree.printout()
 
 app = FastAPI()
 
-mount_controllers(app)
+middleware.add_log_requests(app)
+
+controllers.mount_controllers(app)

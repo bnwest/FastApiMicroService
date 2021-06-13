@@ -8,7 +8,7 @@ services:
       # docker build --target development --tag fastapi:dev .
     image:
       fastapi:dev
-    command: ["uvicorn", "--host", "0.0.0.0", "--reload", "--log-level", "debug", "main:app"]
+    command: ["uvicorn", "--host", "0.0.0.0", "--reload", "--log-level", "debug", "--use-colors", "main:app"]
       #- uvicorn
       #- --host 0.0.0.0
       #- --reload
