@@ -33,5 +33,6 @@ logging_tree.printout()
 app = FastAPI()
 
 middleware.add_log_requests(app)
+middleware.add_log_exceptions(app)
 
 controllers.mount_controllers(app)
