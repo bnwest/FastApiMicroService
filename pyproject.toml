@@ -9,6 +9,7 @@ license = "None"
 python = "^3.9"
 fastapi = "^0.63.0"
 uvicorn = "^0.13.4"
+logging_tree = "^1.9"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.21.0"

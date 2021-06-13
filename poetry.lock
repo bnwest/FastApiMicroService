@@ -216,6 +216,14 @@ qa = ["flake8 (==3.8.3)", "mypy (==0.782)"]
 testing = ["Django (<3.1)", "colorama", "docopt", "pytest (<6.0.0)"]
 
 [[package]]
+name = "logging-tree"
+version = "1.9"
+description = "Introspect and display the logger tree inside \"logging\""
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "mccabe"
 version = "0.6.1"
 description = "McCabe checker, plugin for flake8"
@@ -531,7 +539,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "8c4f09e15d780c424cd151ce63377de5eb7ca5042c0a2a2a3d55c8a0e2ed624b"
+content-hash = "0b502052c0f24497bcdde973b1264720f1ead22b816923654c1da3a524d19e8f"
 
 [metadata.files]
 appdirs = [
@@ -608,6 +616,10 @@ ipython-genutils = [
 jedi = [
     {file = "jedi-0.18.0-py2.py3-none-any.whl", hash = "sha256:18456d83f65f400ab0c2d3319e48520420ef43b23a086fdc05dff34132f0fb93"},
     {file = "jedi-0.18.0.tar.gz", hash = "sha256:92550a404bad8afed881a137ec9a461fed49eca661414be45059329614ed0707"},
+]
+logging-tree = [
+    {file = "logging_tree-1.9-py2.py3-none-any.whl", hash = "sha256:1aa4c74f9ae0a86d14bb1d36b2e3066324e22132e6e55200d4ecf009dba4c536"},
+    {file = "logging_tree-1.9.tar.gz", hash = "sha256:fe78b28788c249b515d12a50417e4a96ba095582927b3601a0573886bffc1ff0"},
 ]
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
