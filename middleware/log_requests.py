@@ -12,10 +12,16 @@ logger = logging.getLogger(__name__)
 
 
 async def log_requests(request: Request, call_next):
+    # https://github.com/tiangolo/fastapi/issues/394
+    # the call to "await request.body()" is a problem.
+    # the call to log the body works, but the later call
+    # to get the body in the endpoint handler hangs.
+    # "consuming the body inside of middleware is broadly discouraged by starlette"
+
     request_uid = uuid.uuid4()
     logger.info(
         f"rid={request_uid} start request path={request.url}\n"
-        + f"request body is:{await request.body()}\n"
+        # + f"request body is:{await request.body()}\n"
         + f"request query params:{request.query_params}\n"
         + f"request cookies:{request.cookies}"
     )
