@@ -16,9 +16,9 @@ def test_get_items_no_query():
     response_json = response.json()
     assert isinstance(response_json, dict)
     assert "item_id" in response_json
-    assert response_json['item_id'] == item_id
+    assert response_json["item_id"] == item_id
     assert "q" in response_json
-    assert response_json['q'] is None
+    assert response_json["q"] is None
 
 
 def test_get_items_query_1():
@@ -30,30 +30,30 @@ def test_get_items_query_1():
     response_json = response.json()
     assert isinstance(response_json, dict)
     assert "item_id" in response_json
-    assert response_json['item_id'] == item_id
+    assert response_json["item_id"] == item_id
     assert "q" in response_json
-    assert response_json['q'] == q
+    assert response_json["q"] == q
 
 
 def test_get_items_query_2():
     item_id = 42
     q = "NeverSendToKnowForWhomTheBellTolls"
-    query_params = {'q': q}
+    query_params = {"q": q}
     endpoint_url = f"{FASTAPI_ROOT}/items/{item_id}"
     response = requests.get(endpoint_url, params=query_params)
     assert response.status_code == 200
     response_json = response.json()
     assert isinstance(response_json, dict)
     assert "item_id" in response_json
-    assert response_json['item_id'] == item_id
+    assert response_json["item_id"] == item_id
     assert "q" in response_json
-    assert response_json['q'] == q
+    assert response_json["q"] == q
 
 
 def test_get_items_json():
     item_id = 42
     q = "NeverSendToKnowForWhomTheBellTolls"
-    json_params = {'q': q}
+    json_params = {"q": q}
     endpoint_url = f"{FASTAPI_ROOT}/items/{item_id}"
     response = requests.get(endpoint_url, json=json_params)
     assert response.status_code == 200
@@ -61,16 +61,16 @@ def test_get_items_json():
     print(f"response json is:\n{response_json}")
     assert isinstance(response_json, dict)
     assert "item_id" in response_json
-    assert response_json['item_id'] == item_id
+    assert response_json["item_id"] == item_id
     assert "q" in response_json
     # Flask can take a json payload on GET, while FastApi will not
-    assert response_json['q'] is None
+    assert response_json["q"] is None
 
 
 def test_get_items_data():
     item_id = 42
     q = "NeverSendToKnowForWhomTheBellTolls"
-    json_params = {'q': q}
+    json_params = {"q": q}
     endpoint_url = f"{FASTAPI_ROOT}/items/{item_id}"
     response = requests.get(endpoint_url, data=json.dumps(json_params))
     assert response.status_code == 200
@@ -78,10 +78,10 @@ def test_get_items_data():
     print(f"response json is:\n{response_json}")
     assert isinstance(response_json, dict)
     assert "item_id" in response_json
-    assert response_json['item_id'] == item_id
+    assert response_json["item_id"] == item_id
     assert "q" in response_json
     # Flask can take a json payload on GET, while FastApi will not
-    assert response_json['q'] is None
+    assert response_json["q"] is None
 
 
 def test_put_item_query():
@@ -116,11 +116,11 @@ def test_put_item_json():
     assert "item_id" in response_json
     assert response_json["item_id"] == item_id
     assert "item" in response_json
-    assert "name" in response_json['item']
+    assert "name" in response_json["item"]
     assert response_json["item"]["name"] == item["name"]
-    assert "price" in response_json['item']
+    assert "price" in response_json["item"]
     assert response_json["item"]["price"] == item["price"]
-    assert "is_offer" in response_json['item']
+    assert "is_offer" in response_json["item"]
     assert response_json["item"]["is_offer"] == item["is_offer"]
 
 
@@ -157,11 +157,11 @@ def test_put_item_data():
     assert "item_id" in response_json
     assert response_json["item_id"] == item_id
     assert "item" in response_json
-    assert "name" in response_json['item']
+    assert "name" in response_json["item"]
     assert response_json["item"]["name"] == item["name"]
-    assert "price" in response_json['item']
+    assert "price" in response_json["item"]
     assert response_json["item"]["price"] == item["price"]
-    assert "is_offer" in response_json['item']
+    assert "is_offer" in response_json["item"]
     assert response_json["item"]["is_offer"] == item["is_offer"]
 
 
