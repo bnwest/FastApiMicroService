@@ -10,12 +10,24 @@ class Item(pydantic.BaseModel):
     is_offer: Optional[bool] = None
 
 
-async def read_item(item_id: int, q: Optional[str] = None) -> Dict:
-    return {"item_id": item_id, "q": q}
+async def read_item(
+        item_id: int,
+        q: Optional[str] = None
+) -> Dict:
+    return {
+        "item_id": item_id,
+        "q": q
+    }
 
 
-async def update_item(item_id: int, item: Item) -> Dict:
-    return {"item_name": item.name, "item_id": item_id}
+async def update_item(
+        item_id: int,
+        item: Item
+) -> Dict:
+    return {
+        "item_id": item_id,
+        "item": item
+    }
 
 
 def mount(app: FastAPI) -> None:

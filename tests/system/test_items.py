@@ -84,7 +84,7 @@ def test_get_items_data():
     assert response_json['q'] is None
 
 
-def test_post_item_query():
+def test_put_item_query():
     item_id = 42
     item = {
         "name": "John Doe",
@@ -101,7 +101,7 @@ def test_post_item_query():
     #   which can be overriden via     ... q: str = fastapi.Body(...)
 
 
-def test_post_item_json():
+def test_put_item_json():
     item_id = 42
     item = {
         "name": "John Doe",
@@ -124,7 +124,7 @@ def test_post_item_json():
     assert response_json["item"]["is_offer"] == item["is_offer"]
 
 
-def test_post_item_json_2():
+def test_put_item_json_2():
     item_id = 42
     item = {
         "name": "John Doe",
@@ -142,7 +142,7 @@ def test_post_item_json_2():
     # FastAPi can handle the above via ... item: Item = fastapi.Body(..., embed=True)
 
 
-def test_post_item_data():
+def test_put_item_data():
     item_id = 42
     item = {
         "name": "John Doe",
@@ -165,7 +165,7 @@ def test_post_item_data():
     assert response_json["item"]["is_offer"] == item["is_offer"]
 
 
-def test_post_item_data_2():
+def test_put_item_data_2():
     item_id = 42
     item = {
         "name": "John Doe",
