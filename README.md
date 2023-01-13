@@ -22,28 +22,30 @@ These commands are exactly the same commands that Dockerfile has and that will b
 These commands could be run on the host (versus within a running Docker image) but one would need to guarantee the correct python version. 
 I find it easier to work within the running Docker image, since in the end poetry must properly work there.
 ```bash
+$ docker run -it --entrypoint /bin/bash python:3.11.1-slim
+
 % export PYTHONUNBUFFERED=1
 % export PYTHONDONTWRITEBYTECODE=1
 % export PIP_NO_CACHE_DIR=off
 % export PIP_DISABLE_PIP_VERSION_CHECK=on
 % export PIP_DEFAULT_TIMEOUT=100
-% export POETRY_VERSION=1.1.4
+% export POETRY_VERSION=1.3.0
 % export POETRY_HOME="/opt/poetry"
 % export POETRY_VIRTUALENVS_IN_PROJECT=true
 % export POETRY_NO_INTERACTION=1
 % export PYSETUP_PATH="/opt/pysetup"
-% export ENV_PATH="/opt/pysetup/.venv"
+% export VENV_PATH="/opt/pysetup/.venv"
 % apt-get update
 % apt-get install --no-install-recommends -y curl
 % apt-get install --no-install-recommends -y  build-essential
-% curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+% curl -sSL https://install.python-poetry.org | python3 -
 % mkdir $PYSETUP_PATH
 % cd $PYSETUP_PATH
 % $POETRY_HOME/bin/poetry init
 # will be given a chance to add python packages, one at a time.
 # packages can later be add via "poetry add <package>".
 % cat pyproject.toml 
-% $POETRY_HOME/bin/poetry install
+% $POETRY_HOME/bin/poetry install --no-root
 % cat poetry.lock 
 ```
 The outut of the two `cat` commands can be cut-and-pasted back to the host.

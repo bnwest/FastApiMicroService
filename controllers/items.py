@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 import pydantic
 
 from typing import Optional, Dict
@@ -11,23 +11,15 @@ class Item(pydantic.BaseModel):
 
 
 async def read_item(
-        item_id: int,
-        q: Optional[str] = None
+    item_id: int,
+    # q: Optional[str] = None,  # by default parameters are assumed to be query parameters
+    q: Optional[str] = Query(None, title="q is for quert parameter."),
 ) -> Dict:
-    return {
-        "item_id": item_id,
-        "q": q
-    }
+    return {"item_id": item_id, "q": q}
 
 
-async def update_item(
-        item_id: int,
-        item: Item
-) -> Dict:
-    return {
-        "item_id": item_id,
-        "item": item
-    }
+async def update_item(item_id: int, item: Item) -> Dict:
+    return {"item_id": item_id, "item": item}
 
 
 def mount(app: FastAPI) -> None:

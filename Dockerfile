@@ -4,7 +4,7 @@
 
 
 # `python-base` sets up all our shared environment variables
-FROM python:3.9.2-slim as python-base
+FROM python:3.11.1-slim as python-base
 # slim => sh and no bash
 
 #
@@ -36,7 +36,7 @@ ENV PIP_DEFAULT_TIMEOUT=100
 # https://python-poetry.org/docs/configuration/
 #
 
-ENV POETRY_VERSION=1.1.4
+ENV POETRY_VERSION=1.3.0
 
 ENV POETRY_HOME="/opt/poetry"
 
@@ -72,14 +72,14 @@ RUN apt-get update \
         build-essential
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN poetry install --no-dev
+RUN poetry install  --no-root --no-dev
 
 
 ################################################################################
@@ -103,7 +103,7 @@ COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 # quicker install as runtime deps are already installed
-RUN poetry install
+RUN poetry install --no-root
 
 COPY . /opt/src
 WORKDIR /opt/src
@@ -138,7 +138,7 @@ COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 # quicker install as runtime deps are already installed
-RUN poetry install
+RUN poetry install --no-root
 
 COPY . /opt/src
 WORKDIR /opt/src

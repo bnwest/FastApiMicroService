@@ -1,6 +1,8 @@
 """ Small FastApi micro-service. """
 
-# See: https://fastapi.tiangolo.com
+# See:
+#      https://fastapi.tiangolo.com
+#      https://fastapi.tiangolo.com/tutorial/
 
 import logging
 import logging_tree
