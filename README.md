@@ -14,7 +14,7 @@ A slightly modified version of a small FastAPI service found here:
 
 The base image for the Docker build is `python:3.9.2-slim` which I first pull to get locally:
 ```bash
-$ docker pull python:3.9.2-slim
+$ docker pull python:3.11.1-slim
 ```
 
 Next, I bash into that pulled image and execute a serious a commands to build the two [poetry](https://python-poetry.org) files needed to manage python packages: `pyproject.toml` and `poetry.lock`.
@@ -177,6 +177,11 @@ collected 1 item
 tests/system/test_hello.py::test_hello_world PASSED                                                               [100%]
 
 =================================================== 1 passed in 0.16s ===================================================
+```
+
+To tear it all down, cntl-C out of the running service and then
+```bash
+$ docker system prune
 ```
 
 ## Docker-Compose
