@@ -29,8 +29,11 @@ DEFAULT_LOGGING = {
 
 logging.config.dictConfig(DEFAULT_LOGGING)
 
-# to see the current log config:
-logging_tree.printout()
+FASTAPI_ENV = os.environ.get("FASTAPI_ENV", "production")
+
+if FASTAPI_ENV == "development":
+    # to see the current log config:
+    logging_tree.printout()
 
 app = FastAPI()
 

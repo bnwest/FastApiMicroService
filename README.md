@@ -270,18 +270,24 @@ The following commands will verify that you have the right Kubernetes node:
 ```bash
 $ kubectl config get-contexts
 
+# set current context via Docker Desktop or ...
+$ kubectl config set-contexts docker-desktop
+
 $ kubectl config current-context
 docker-desktop
 
 $ kubectl get nodes
 NAME             STATUS   ROLES    AGE     VERSION
 docker-desktop   Ready    master   7m50s   v1.19.7
+
+# this might work as well
+$ kubectl --context docker-desktop get nodes 
 ```
 The following link may assist in getting Kubernetes to work on the Mac: [Using Kubernetes with Docker for Mac](https://logz.io/blog/kubernetes-docker-mac/). 
 
 The following link may assist in getting Kubernetes and helm working with a FastAPI service: [Simple chart with helm](https://bartek-blog.github.io/kubernetes/helm/python/fastapi/2020/12/13/helm.html).
 
-The work below may also work with the host's [minikube](https://minikube.sigs.k8s.io/docs/) Kubernetes.  I did not try it.
+The work below may also work with the host's [minikube](https://minikube.sigs.k8s.io/docs/) Kubernetes.  I did not try.
 
 To setup the initial helm charts, I did the following commands from the repo root:
 ```bash
@@ -325,7 +331,7 @@ To force Helm/Kubernetes to find the image locally, the `pullPolicy` needs to be
 imagePullPolicy: Never: the image is assumed to exist locally. No attempt is made to pull the image.
 ```
 
-To see how the helm paramaterized yaml files will expanded. do the following:
+To see how the helm paramaterized yaml files will be expanded (via **debug** and **dry-run**), do the following:
 ```bash
 $ cd charts  # if needed
 

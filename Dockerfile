@@ -90,6 +90,8 @@ RUN poetry install  --no-root --no-dev
 # `development` image is used during test
 FROM python-base as test
 
+ENV FASTAPI_ENV=development
+
 WORKDIR $PYSETUP_PATH
 
 RUN apt-get update \

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "fastapi-service.fullname" . }}-test-system"
+  name: {{ include "fastapi-service.fullname" . }}-test-system
   labels:
     {{- include "fastapi-service.labels" . | nindent 4 }}
   annotations:
