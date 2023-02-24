@@ -13,12 +13,15 @@ class Item(pydantic.BaseModel):
 async def read_item(
     item_id: int,
     # q: Optional[str] = None,  # by default parameters are assumed to be query parameters
-    q: Optional[str] = Query(None, title="q is for quert parameter."),
+    q: Optional[str] = Query(None, title="q is for query parameter."),
 ) -> Dict:
     return {"item_id": item_id, "q": q}
 
 
-async def update_item(item_id: int, item: Item) -> Dict:
+async def update_item(
+    item_id: int,
+    item: Item
+) -> Dict:
     return {"item_id": item_id, "item": item}
 
 

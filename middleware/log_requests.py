@@ -20,10 +20,18 @@ async def log_requests(request: Request, call_next):
 
     request_uid = uuid.uuid4()
     logger.info(
-        f"rid={request_uid} start request path={request.url}\n"
-        # + f"request body is:{await request.body()}\n"
-        + f"request query params:{request.query_params}\n"
-        + f"request cookies:{request.cookies}"
+        f"rid={request_uid} start request",
+        extra={
+            "url": str(request.url),
+            # "body": await request.body(),
+            # starlette.datastructures.QueryParams which is ImmutableMultiDict
+            # where each key in the ImmutableMultiDict can reference more than one value
+            "query_params": {
+                key: request.query_params.getlist(key)
+                for key in request.query_params.keys()
+            },
+            "cookies": request.cookies,  # Dict[str, str]
+        },
     )
     start_time = time.time()
 
